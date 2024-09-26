@@ -1,0 +1,47 @@
+<?php
+include_once('connection/conJSON.php');
+error_reporting(E_ALL);
+
+$NO_ORDEN=$_POST['NO_ORDEN'];
+//$NOCONTROL=$_POST['NOCONTROL'];
+$DICTAMEN_TECNICO_DE=$_POST['DICTAMEN_TECNICO_DE'];
+$ID_EQUIPO_INVENTARIO=$_POST['ID_EQUIPO_INVENTARIO'];
+$ACCESORIOS_ADICIONALES=$_POST['ACCESORIOS_ADICIONALES'];
+$ANIOS_USO=$_POST['ANTIGUEDAD'];
+$FECHA_DICTAMEN=$_POST['FECHA_DICTAMEN'];
+$ELABORADO_POR=$_POST['ELABORADO_POR'];
+$JEFEDEAREA=$_POST['JEFEDEAREA'];
+
+$DICTAMEN=$_POST['DICTAMEN'];
+$NO_DICTAMEN=$_POST['NO_DICTAMEN'];
+$subdirector=$_POST['subdirector'];
+
+/*$sql_orden="SELECT ID_ORDEN_SERVICIO FROM orden_servicio WHERE NO_ORDEN='$NO_ORDEN'";
+$orden=getArraySQL($sql_orden);
+$ID_ORDEN=$orden[0]['ID_ORDEN_SERVICIO'];*/
+
+
+if($DICTAMEN_TECNICO_DE=='EQUIPO'):
+    
+    $set_dictamen="UPDATE equipoinventario SET ESTADO='DICTAMEN' WHERE ID_EQUIPO_INVENTARIO='$ID_EQUIPO_INVENTARIO'";
+     $s_d=updateArraySQL($set_dictamen);
+
+    elseif($DICTAMEN_TECNICO_DE=='EQUIPO SINIESTRADO'):
+    
+    $set_dictamen="UPDATE equipoinventario SET ESTADO='ACTIVO' WHERE ID_EQUIPO_INVENTARIO='$ID_EQUIPO_INVENTARIO'";
+      $s_d=updateArraySQL($set_dictamen);
+else:
+    $set_dictamen="UPDATE equipoinventario SET ESTADO='ACTIVO' WHERE ID_EQUIPO_INVENTARIO='$ID_EQUIPO_INVENTARIO'";
+      $s_d=updateArraySQL($set_dictamen);
+endif;
+
+$sql="UPDATE dictamenes SET  FECHA_DICTAMEN='$FECHA_DICTAMEN', DICTAMEN_TECNICO_DE='$DICTAMEN_TECNICO_DE', DICTAMEN='$DICTAMEN', ANIOS_USO='$ANIOS_USO', DICTAMEN='$DICTAMEN', ELABORADO_POR='$ELABORADO_POR',
+JEFEDEAREA='$JEFEDEAREA', subdirector='$subdirector'
+ WHERE NO_DICTAMEN='$NO_DICTAMEN'";
+
+
+    $row_insert=setArraySQL($sql);
+
+
+echo ('NO_DICTAMEN='.$NO_DICTAMEN.'&NO_ORDEN='.$NO_ORDEN);
+?>

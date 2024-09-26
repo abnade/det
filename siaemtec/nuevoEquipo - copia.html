@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Nuevo Equipo</title>
+
+<link rel="stylesheet" href="css/ddt.css?date=070721">
+    
+<!--------------- Codigo en Java Script--------------->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/funciones.js?update=28072021"></script>
+
+<script>
+    
+    $(document).ready(function(){
+        
+        var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+  dd = '0' + dd;
+}
+
+if (mm < 10) {
+  mm = '0' + mm;
+}
+
+//today = mm + '/' + dd + '/' + yyyy;
+        today= yyyy+ '-'+mm +'-'+dd;
+        console.log(today)
+        $('#FECHA_CREACION').val(today)
+            
+        
+               // Catalogo Equipos
+          var catalogo_equipo=    $.ajax({
+                method: "GET",
+                url: "php/data/catalogo_equipo.php"
+                });
+             
+              
+                catalogo_equipo.done(function( response, textStatus, jqXHR ) {
+                    
+                    response= $.parseJSON(response);
+                        
+                 
+                //response= response.parseJSON;
+                //  console.log(response) 
+                    $.each(response, function(key, val){
+                       // console.log(val.DRUG)
+      $('#select2').append('<option value="' + val.ID_EQUIPO + '">' + val.EQUIPO+'</option>');
+    })
+    
+                    });
+ 
+                catalogo_equipo.fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+                    });
+        
+        // Catalogo Proveedoores
+          var catalogo_proveedor=    $.ajax({
+                method: "GET",
+                url: "php/data/catalogo_proveedores.php"
+                });
+             
+              
+                catalogo_proveedor.done(function( response, textStatus, jqXHR ) {
+                    
+                    response= $.parseJSON(response);
+                        
+                 
+                //response= response.parseJSON;
+                 // console.log(response) 
+                    $.each(response, function(key, val){
+                       // console.log(val.DRUG)
+      $('#select3').append('<option value="' + val.ID_PROVEEDOR + '">' + val.PROVEEDOR+'</option>');
+    })
+    
+     
+                    });
+ 
+                catalogo_proveedor.fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+                    });
+   
+         // Catalogo Ubicacion
+          var catalogo_ubicacion=    $.ajax({
+                method: "GET",
+                url: "php/data/catalogo_ubicacion.php"
+                });
+             
+              
+                catalogo_ubicacion.done(function( response, textStatus, jqXHR ) {
+                    
+                    response= $.parseJSON(response);
+                        
+                 
+                //response= response.parseJSON;
+                 // console.log(response) 
+                    $.each(response, function(key, val){
+                       // console.log(val.DRUG)
+      $('#select4').append('<option value="' + val.ID_AREA + '">' + val.SERVICIO+'/'+val.AREA+'</option>');
+    })
+    
+     
+                    });
+ 
+                catalogo_ubicacion.fail(function( jqXHR, textStatus ) {
+               // console.log( "Request failed: " + textStatus );
+                    });
+        
+      /* ubication_info  */
+        $("#select4").on('change', function(){
+            //alert($(this).val())
+                ID_EQUIPO=$('#select2').val();
+                ID_UBICACION=$('#select4').val();
+            if(document.getElementById("DEMOSTRACION").checked){
+	           DP='DP-';}
+	           else{DP='';}
+            //console.log(DP)
+            $.get( "php/data/getNoControl.php?DP="+DP+"&ID_EQUIPO="+ID_EQUIPO+"&ID_UBICACION="+ID_UBICACION, function( data ) {
+                $("#NO_CONTROL").val(data);
+            //alert(data);
+});
+        })
+        
+        
+        
+         $("#select2").on('change', function(){
+             ID_EQUIPO=$(this).val();
+        // Datos Tecnicos
+          var catalogo_equipo=    $.ajax({
+                method: "GET",
+                url: "php/data/getDatosTecnicos.php?ID_EQUIPO="+ID_EQUIPO
+                });
+             
+              
+                catalogo_equipo.done(function( response, textStatus, jqXHR ) {
+                    
+                    response= $.parseJSON(response);
+                        
+                 
+              
+                  console.log(response) 
+                   
+    $('#ALIMENTACION_CONSUMO').val(response[0]['ALIMENTACION_CONSUMO'])
+     $('#GASES').val(response[0]['GASES'])
+      $('#TEMPERATURA').val(response[0]['TEMPERATURA'])
+       $('#INST_HIDRAULICA').val(response[0]['INST_HIDRAULICA'])
+       $('#CX_RED').val(response[0]['CX_RED'])
+       $('#OTROS').val(response[0]['OTROS'])
+                    });
+                
+ 
+ 
+                catalogo_equipo   .fail(function( jqXHR, textStatus ) {
+                console.log( "Request failed: " + textStatus );
+                    });// fIN dATOS TECNICOS
+         })
+     
+        
+        
+         $('#submit').click(function(){
+          
+             
+              // Prevent default posting of form - put here to work in case of errors
+    event.preventDefault();
+
+    // Abort any pending request
+   
+    // setup some local variables
+    var $form = $('#form1');
+
+    // Let's select and cache all the fields
+    var $inputs = $form.find("input, input:hidden, select, button, textarea, checkbox, radio");
+
+    // Serialize the data in the form
+    var serializedData = $form.serialize();
+
+   
+    
+    // Fire off the request to /form.php
+   request = $.ajax({
+        url: "php/nuevoEquipo.php",
+        type: "post",
+        data: serializedData
+    });
+ 
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        
+       // console.log(response);
+        //response=response.parse;
+        window.location.href='menuInventario.html'; 
+             
+     }
+                );
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // Log the error to the console
+        console.error(
+            "The following error occurred: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // Reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+             
+         })
+       
+        
+    })
+    
+    </script>
+</head>
+
+<body>
+
+<form action="" method="post" name="form1" id="form1" class="formulario bg-gris-claro">
+  <table align="center" border="0" class="" >
+   <tr valign="baseline">
+      <th colspan="4" >Datos de entrada</th>
+    </tr>
+    <tr  >
+     <td align="" nowrap="nowrap"></td>
+      <td style=" font-weight:bold"><input type="checkbox" name="DEMOSTRACION" id="DEMOSTRACION" />
+      DEMOSTRACIÓN PERMANENTE</td>
+      <td align="" nowrap="nowrap">  NÚMERO DE CONTROL:</td>
+      <td><div id="txtHint" ><input name="NO_CONTROL" id="NO_CONTROL" type="text" value=""   readonly="readonly" class="disabled-siaem entrada-texto"/></div></td>
+    </tr>
+    <tr valign="baseline">
+      <td>EQUIPO:</td>
+      <td><select name="ID_EQUIPO" id="select2" onchange="" class="select" >
+        <option value="" selected="selected"> Seleccione ... </option>
+       
+        <option value="">
+      </select></td>
+      <td align="" nowrap="nowrap">MARCA:</td>
+      <td><input type="text" name="MARCA" value="" class="entrada-texto" /></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">MODELO:</td>
+      <td><input type="text" name="MODELO" value=""  class="entrada-texto"/></td>
+      <td align="" nowrap="nowrap">SERIE:</td>
+      <td><input type="text" name="SERIE" value=""  class="entrada-texto"/></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">NO INVENTARIO:</td>
+      <td><input type="text" name="NO_INVENTARIO" value="NO ASIGNADO"  class="entrada-texto"/></td>
+    <td align="" nowrap="nowrap">ESTADO:</td>
+      <td><input name="ESTADO"   value="ACTIVO" readonly="readonly"  class="entrada-texto"/>
+       </td>
+    </tr>
+    
+    
+    <tr valign="baseline">
+      
+      <td align="" nowrap="nowrap">
+        UBICACIÓN/ SERVICIO</td>
+      <td><select name="ID_AREA" id="select4"  class="select" >
+        <option value="" selected="selected"> Seleccione ... </option>
+
+      </select>
+        
+        
+        </td>
+        <td ></td>
+      <td></td>
+    </tr>
+    <tr valign="baseline">
+      <!--td align="" nowrap="nowrap">CUERPO:</td>
+      <td><input type="text" name="CUERPO" id="CUERPO" value="" readonly="readonly" class="disabled-siaem entrada-texto" /></td-->
+     
+    </tr>
+  
+    <tr valign="baseline">
+      <th colspan="4"  nowrap="nowrap"><div align="center" style="border-top-style:solid; border-top-width:thin;"></div></th>
+    </tr>
+    <tr valign="baseline">
+      <th colspan="4"  nowrap="nowrap" ><div align="center">Datos de Adquisición e Instalación</div></th>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">PROPIEDAD:</td>
+      <td><select name="PROPIEDAD" class="select" > 
+        <option value="INR">INR </option>
+        <option value="DEMOSTRACION PERMANENTE">DEMOSTRACION PERMANENTE </option>   
+      </select></td>
+      <td align="" nowrap="nowrap">FECHA INSTALACION:</td>
+      <td><input type="date" name="FECHA_DE_INSTALACION" id="FECHA_DE_INSTALACION" value=""  onclick=""  min="2000-01-01" class="entrada-texto"/></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">CONVENIO/EVENTO</td>
+      <td><input type="text" name="CONVENIO_EVENTO" value=""  class="entrada-texto"/></td>
+      <td align="" nowrap="nowrap">TIPO DE ADQUISICION:</td>
+      <td><select name="COMPRA_POR" class="select">
+        <option value="LICITACION">LICITACION</option>
+        <option value="DONACION">DONACION</option>
+        <option value="INVITACION A TRES">INVITACION A TRES</option>
+        <option value="COMPRA DIRECTA">COMPRA DIRECTA</option>
+        <option value="DESCONOCIDO">DESCONOCIDO</option>
+      </select></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">PRECIO($MXN CON IVA):</td>
+      <td><input type="text" name="PRECIO" value=""  placeholder="    incluye IVA" class="entrada-texto"/></td>
+      <td align="" nowrap="nowrap">PARTIDA:</td>
+      <td><input type="text" name="PARTIDA" value="" class="entrada-texto"/></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">FECHA CREACION:</td>
+      <td><input type="text" name="FECHA_CREACION" id="FECHA_CREACION"
+                 value="" class="entrada-texto"/></td>
+      <td>PROVEEDOR:</td>
+      <td><select name="PROVEEDOR" id="select3" onchange="getProveedorData(this.value)" class="select">
+        <option value="" selected="selected" > Seleccione ... </option>
+       
+        <option value="">
+      </select ></td>
+    </tr>
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">AÑOS DE GARANTIA</td>
+      <td><input type="number" name="ANIOSGARANTIA" id="ANIOSGARANTIA" value="1" size="5" class="entrada-texto" /></td>
+      <td align="" nowrap="nowrap">FECHA RECEPCION:</td>
+      <td><input type="date" name="FECHA_COMPRA" id="FECHA_RECEPCION" value=""  min="2000-01-01" class="entrada-texto"/></td>
+    </tr>
+  
+    <tr valign="baseline">
+      <td align="" nowrap="nowrap">GARANTIA A partir de:</td>
+      <td>
+        <select  id="APARTIRDE" name="APARTIRDE" class="select">
+          <option value="" > </option>
+          <option value="RECEPCION" > RECEPCION </option>
+          <option value="INSTALACION" > INSTALACION </option>
+        </select>
+          <td> FECHA DE GARANTÍA:</td>
+        <td> <input type="text" name="GARANTIA" id="GARANTIA" value="" size="20" class="entrada-texto" /></td>
+      </tr>
+      <tr>
+            <td height="59" align="right" nowrap="nowrap">VIDA UTIL:</td>
+      <td><input type="hidden" name="VIDA_UTIL" id="VIDA_UTIL" value="" class="entrada-texto" /><div id="v_util"></div></td>
+          <td></td>
+          <td>
+      
+       </td>
+    
+    </tr>
+       <tr valign="baseline">
+      
+      <td colspan="4">NOTAS:</td>
+    </tr>
+     <tr valign="baseline">
+      
+      <td colspan="4"><textarea name="NOTAS" cols="96" class="area-texto"></textarea></td>
+    </tr>
+             <tr valign="baseline">
+      
+      <td colspan="4">OBSERVACIONES PARA INSTALACIÓN :</td>
+    </tr>
+     <tr valign="baseline">
+      
+      <td colspan="4"><textarea name="OBSERVACIONES" cols="96" class="area-texto"></textarea></td>
+    </tr>
+
+   <tr><th colspan="4"> Datos Técnicos</th></tr>
+      <tr>
+      <td>ALIMENTACIÓN Y CONSUMO ELÉCTRICO</td>
+       <td><input type="text" class="entrada-texto" id="ALIMENTACION_CONSUMO" value=""></td>
+            <td>GASES</td>
+       <td><input type="text" class="entrada-texto" id="GASES" value=""></td>
+      </tr>
+      
+      <tr>
+      <td>TEMPERATURA DE OPERACIÓN</td>
+       <td><input type="text" class="entrada-texto" id="TEMPERATURA" value=""></td>
+            <td>INSTALACIÓN HIDRÁULICA</td>
+       <td><input type="text" class="entrada-texto" id="INST_HIDRAULICA" value=""></td>
+      </tr>
+      
+        <tr>
+      <td>OTROS</td>
+       <td><input type="text" class="entrada-texto" id="OTROS" value=""></td>
+            <td>CONEXIÓN A RED</td>
+       <td><input type="text" class="entrada-texto" id="CX_RED" value=""></td>
+      </tr>
+       <tr valign="baseline">
+      <td nowrap="nowrap" align="right">&nbsp;</td>
+      <td align="" nowrap="nowrap"><div align="center">
+         <a href="menuInventario.html" class="btn boton-secundario"> Cancelar</a>
+      </div></td>
+      <td align="" nowrap="nowrap"></td>
+      <td><div align="center">
+        <input type="submit" id="submit" value="Ingresar " style="" class="boton-primario"/>
+      </div></td>
+    </tr>
+  </table>
+  <input type="hidden" name="MM_insert" value="form1" />
+</form>
+<p>&nbsp;</p>
+
+
+ <script>
+$( "#APARTIRDE" ).change(function() {
+val= $(this).val(); 
+
+instalacion=document.getElementById("FECHA_RECEPCION").value;
+
+switch(val) {
+	
+	
+    case 'INSTALACION':
+        {
+        
+            fecha=document.getElementById('FECHA_DE_INSTALACION').value;
+            console.log(fecha)
+	if(fecha==''){alert('Coloca una fecha válida en FECHA DE INSTALACION')}
+	// 
+
+	anios_g=+document.getElementById("ANIOSGARANTIA").value;
+	
+	fecha_i=fecha.split("-");
+	g=+fecha_i[0]+ anios_g;
+	garantia=g+'-'+fecha_i[1]+'-'+fecha_i[2];
+	
+	document.getElementById('GARANTIA').value=garantia;
+	//Llena la vida útil
+	instalacion=instalacion.split("-");
+	v=+instalacion[0]+5;
+	vida_util=v+'-'+instalacion[1]+'-'+instalacion[2];
+	document.getElementById('VIDA_UTIL').value=vida_util;
+	document.getElementById('v_util').innerHTML=instalacion[2]+'/'+ instalacion[1]+'/'+v;}
+        break;
+    case 'RECEPCION':
+	
+	{fecha=document.getElementById('FECHA_RECEPCION').value;
+    if(fecha==''){alert('Coloca una fecha válida en FECHA DE RECEPCIÓN')}
+	//
+	anios_g=+document.getElementById("ANIOSGARANTIA").value;
+	fecha=fecha.split("-");
+	g=+fecha[0]+anios_g;
+	garantia=g+'-'+fecha[1]+'-'+fecha[2];
+	
+	document.getElementById('GARANTIA').value=garantia;
+	//Llena la vida útil
+	instalacion=instalacion.split("-");
+	v=+instalacion[0]+5;
+	vida_util=v+'-'+instalacion[1]+'-'+instalacion[2];
+	document.getElementById('VIDA_UTIL').value=vida_util;
+	document.getElementById('v_util').innerHTML=instalacion[2]+'/'+ instalacion[1]+'/'+v;
+        //code block
+        break;}
+    default:
+	alert ('Ingresa valores requeridos')
+       // code block
+}
+
+
+});
+
+</script>
+</body>
+</html>
+

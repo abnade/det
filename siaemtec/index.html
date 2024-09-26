@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" prefix="og: http://ogp.me/ns#" > <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" prefix="og: http://ogp.me/ns#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" prefix="og: http://ogp.me/ns#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="" prefix=""> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>Menu Principal</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/ddt.css?date=050121">
+	<link rel="stylesheet" href="css/siaem.css?date=21062021">
+    <style type="text/css"></style>
+	<link rel="stylesheet" href="terceros/bootstrap5/css/bootstrap.css"/>
+<script src="terceros/bootstrap5/js/bootstrap.bundle.min.js" ></script>
+<link href="terceros/bootstrap5/bootstrap-5.0.2-examples/headers/headers.css" rel="stylesheet">
+
+<style>
+    #inventario{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/inventario.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #inventario:hover{
+        background-image: url('images/inventario_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #inventario #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+    #formatos{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/resultados_blanco.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #formatos:hover{
+        background-image: url('images/resultados.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #formatos #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+/*images/reportes.png*/   
+   #reportes{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/reportes.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #reportes:hover{
+        background-image: url('images/reportes_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #reportes #title{
+       margin-top: 250px;
+       bottom: 0;
+    }  
+    /*images/proveedores.png*/
+    
+    #proveedores{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/proveedores.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #proveedores:hover{
+        background-image: url('images/proveedor_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #proveedores #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+    
+    /*images/os.png*/
+    
+    
+    #os{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/os.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #os:hover{
+        background-image: url('images/OS_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #os #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+    
+    /*images/calibracion.png*/
+    
+    #ic{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/calibracion.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #ic:hover{
+        background-image: url('images/multimetro_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #ic #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+    /*images/areas.png*/
+    
+    #areas{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/areas.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #areas:hover{
+        background-image: url('images/areas_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #areas #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    /*images/dictamen.png*/
+     #dictamenes{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/DT_bn.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #dictamenes:hover{
+        background-image: url('images/DT_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #dictamenes #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    /*images/seguimiento.png*/
+    
+       #seguimiento{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/seguimiento.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #seguimiento:hover{
+        background-image: url('images/seguimiento_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #seguimiento #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+     #bitacora{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/librero.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #bitacora:hover{
+        background-image: url('images/librero_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #bitacora #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+      #salir{
+        margin-top: 50px;
+        height: 100px;
+        background-image: url('images/cerrar-sesion.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #salir:hover{
+        background-image: url('images/cerrar-sesion_color.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    } 
+    
+     #salir #title{
+       margin-top: 250px;
+       bottom: 0;
+    }
+    
+     :root {
+  --width: 300px;
+  --height: 20px;
+  --top-color: #fff;
+  --bottom-color: rgba(3,140,62, 0.9);
+}
+
+.separator {
+  width: 100%;
+  height: var(--height);
+  background-image: linear-gradient(to bottom right, var(--top-color), var(--top-color) 50%, var(--bottom-color) 50%, var(--bottom-color));
+}
+    </style>
+</head>
+<body class="">
+
+    <header class="p-3">
+        <div class="" id=""  class="align-bottom" style="padding-top:20px;">
+       <div class="row">
+            <div class="col">
+           <div class="logo-inr" style="width:50%">   <img src="img/inr.jpg"></div>
+           
+           </div>
+                <div class="col">  <p style="" class="text-dark badge text-wrap fs-5"> Sistema de Administración de Equipo Médico</p></div>
+               <div class="col">
+            <div class="logo-salud">  <img src="img/secretariadesalud.jpg"></div>
+               
+           </div>
+            </div> 
+     
+        
+        </div>
+           </header>
+          <main>
+
+
+	<ul class="contenedor-flex" >
+			<li class="flex-item" >
+				<a href="menuInventario.html" title="Menu de Inventario" id="title" > 
+				<div id="inventario">
+                					
+				</div >
+                <div class="title">
+						INVENTARIO
+						
+					</div></a>
+			</li>
+            <li class="flex-item" >
+		        <a href="MenuAceptacion.html" title="Menu de Inventario" id="title" > 
+		        <div id="formatos">
+                      					
+		        </div >
+                      <div class="title">
+		        		FORMATOS DE ACEPTACIÓN
+		        		
+		        	</div></a>
+		    </li>
+			<li class="flex-item">
+				<a href="menuReportes.html" class="menu-icon">
+				<div id="reportes">
+                  
+					</div>
+					<div class="title">
+						REPORTES
+						
+					</div>
+				</a>
+			</li>
+		
+			<li class="flex-item">
+				<a href="menuProveedores.html" class="menu-icon">
+				<div id="proveedores">
+                 
+					
+					
+				</div>
+                <div class="">
+						PROVEEDORES
+						
+					</div></a>
+			</li>
+			<li class="flex-item">
+			<a href="menuOrdenesdeServicio.html" class="menu-icon">	
+				<div id="os">
+                </div>
+				
+					<div class="">
+						ORDENES DE SERVICIO
+						
+					
+				</div></a>
+			</li>
+            	<li class="flex-item">
+			<a  href="menuICalibracion.html" class="menu-icon-inacitive ">	
+				<div id="ic">
+				</div>
+					<div class="">
+						INSTR. DE CALIBRACIÓN
+                      
+						
+					
+				</div></a>
+			</li>		<li class="flex-item">
+				<a href="menuAreas.html" class="menu-icon">
+				<div id="areas">
+				</div>
+					<div class="">
+						SERVICIO/UBICACION
+						
+					
+				</div></a>
+			</li>
+            
+            
+            <li class="flex-item">
+			<a href="menuDictamenes.html" class="menu-icon">	
+				<div id="dictamenes">
+                </div>
+					<div class="">
+						DICTAMENES
+						
+				
+				</div></a>
+			</li>
+               <li  class="flex-item">
+				<a href="menuSeguimiento_r.html" class="menu-icon">
+				<div id="seguimiento">	</div>
+				
+					<div>
+						SEGUIMIENTO/ TRANSITO
+						
+				
+				</div></a>
+			</li>
+           
+          <li  class="flex-item">
+				<a href="bitacora.html" class="menu-icon">
+				<div id="bitacora">	</div>
+				
+					<div>
+						BITÁCORA
+						
+				
+				</div></a>
+			</li>
+           
+        <li  class="flex-item">
+				<a href="index.html" class="menu-icon">
+				<div id="salir">	</div>
+				
+					<div>
+						SALIR
+						
+				
+				</div></a>
+			</li>
+          
+  
+  
+  </ul>
+    <div class="" id=""  class="align-bottom" style="padding-top:50px;">
+       <div class="row">
+            <div class="col">
+          
+           
+           </div>
+                <div class="col-6">  <p style="" class="text-dark badge text-wrap fs-5"> 
+
+Calz. México Xochimilco No. 289 Col. Arenal de Guadalupe, C.P.14389 Tel. 59.99.10.00</p>
+                    <a class="nav-link active fs-7 text-center">SIAEM v.20, 25/ NOVIEMBRE/2021 EQUIPO DE DESARROLLO: M. En C. Nadezhda Aguilar Blas ( Desarrollo de Software, UX), Ing. Alejandra Cruz Rodriguez (Análista, UI, tester), Ing. Constanza Aguilar Valdés (Project Manger, tester)</a>
+           </div>
+               <div class="col">
+           
+               
+           </div>
+            </div> 
+     
+        
+        </div>
+ </main>
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <meta name="generator" content="">
+    <title>FORMATOS DE RECEPCIÓN</title>
+
+    <!--link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/"-->
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="terceros/bootstrap5/bootstrap-5.0.2-examples/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+        
+        #inventario #th_edo{
+            width: 10px;
+        }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+        .TODOS-A{
+            background-color: #9933cc;
+            color: #f8f9fa;
+        }
+        
+        .OBSOLETO-A{
+            background-color: #dc3545;
+            color: #f8f9fa;
+        }
+        
+        .NOOBSOLETO-A{
+            background-color: #027333;
+             color: #f8f9fa;
+                        
+        }
+        
+          .REPARACIONCOSTOSA-A{
+            background-color: #343a40;
+             color: #f8f9fa;
+                        
+        }
+        
+        .SINREFACCIONES-A{
+            background-color: #fd7e14;/*fd7e14*/
+             color: #f8f9fa;
+        }
+        
+        .TODOS:hover{
+            background-color: #9933cc;
+            color: #f8f9fa;
+        }
+        
+        .OBSOLETO:hover{
+            background-color: #dc3545;
+            color: #f8f9fa;
+        }
+        
+        .NOOBSOLETO:hover{
+            background-color: #027333;
+             color: #f8f9fa;
+                        
+        }
+        
+          .REPARACIONCOSTOSA:hover{
+            background-color: #343a40;
+             color: #f8f9fa;
+                        
+        }
+        
+        .SINREFACCIONES:hover{
+            background-color: #fd7e14;/*fd7e14*/
+             color: #f8f9fa;
+        }
+        
+        .TODOS{
+            background-color: rgba(170, 102, 204, 0.7); /*#aa66cc;*/
+            color: #f8f9fa;
+        }
+        
+        .OBSOLETO{
+            background-color: rgba(255, 68, 68, 0.5);
+            color: #f8f9fa;
+        }
+        
+        .NOOBSOLETO{
+            background-color: rgba(0, 200, 81, 0.5);
+             color: #f8f9fa;
+                        
+        }
+        
+          .REPARACIONCOSTOSA{
+            background-color: rgba(71,75, 78, 0.5);
+             color: #f8f9fa;
+                        
+        }
+        
+        .SINREFACCIONES{
+            background-color: rgba(253,126, 20, 0.5);/*fd7e14*/
+             color: #f8f9fa;
+        }
+        
+        
+           .o-text{
+           color: #dc3545;
+               font-weight: bold;
+               font-size: 14px;
+        
+        }
+        
+        .no-text{
+          color: #027333; 
+            font-weight: bold;
+            font-size: 14px;
+        
+                        
+        }
+        .rc-text{
+          color: #343a40; 
+            font-weight: bold;
+            font-size: 14px;
+        
+                        
+        }
+        
+        .sr-text{
+           color: #fd7e14;
+            font-weight: bold;
+            font-size: 14px;
+            
+        
+            
+        }
+        .col-lg-2 {
+    flex: 0 0 auto;
+    width: 10%;
+}
+     .col-lg-10 {
+    flex: 0 0 auto;
+    width: 90%;
+} 
+       div.dataTables_processing, #inventario_processing {
+           color: #0d6efd !important;
+            font-weight: bold;
+             font-size: 20px;
+            margin-top: -10px;    
+            z-index: 300;/*  dataTables_wrapper .dataTables_processing {*/
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    width: 100%;
+    height: 340px;
+    margin-left: -50%;
+            
+        }
+ table.dataTable td.dataTables_empty {
+   /* text-align: left !important;
+     padding-left: 250px;*/
+   
+}
+        input::placeholder {
+            font-size: 9px;
+ 
+}
+        .col-lg-2 {
+    flex: 0 0 auto;
+    width: 10%;
+}
+     .col-lg-10 {
+    flex: 0 0 auto;
+    width: 90%;
+} 
+        .dt_col_hide{display: none;}
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="terceros/bootstrap5/bootstrap-5.0.2-examples/dashboard/dashboard.css" rel="stylesheet">
+      
+      
+      <link rel="shortcut icon" href="images/Logo.ico">
+<link rel="stylesheet" href="css/ddt.css?update=24012022">
+
+<link rel="stylesheet" href="css/siaem-css.css">
+      
+      
+      
+      
+      
+
+<!--*********** ESTILOS FERFIL*************** -->
+<!-- DATA TABLES PACK//-->
+<link rel="stylesheet" type="text/css" href="terceros/DataTables/media/css/jquery.dataTables.css">
+
+<link rel="stylesheet" type="text/css" href="terceros/DataTables/extensions/Buttons/css/buttons.dataTables.css">
+	<!--link rel="stylesheet" type="text/css" href="terceros/DataTables/examples/resources/syntax/shCore.css"-->
+	
+	
+<script type="text/javascript" language="javascript" src="terceros/DataTables/jquery-1.12.4.js">
+	</script>
+    <script type="text/javascript" language="javascript" src="terceros/DataTables/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.15/api/sum().js"></script>
+
+    <script type="text/javascript" language="javascript" src="terceros/DataTables/extensions/Buttons/js/dataTables.buttons.js">
+	</script>
+      
+       <!--Cargar componenes node para exportar a excel--> 
+    <script src="terceros/papaparse/node_modules/export-from-json/dist/umd/index.js"></script>
+    
+    
+    <!--Fin Cargar componenes node para exportar a excel--> 
+    
+    <script src="terceros/papaparse/papaparse.min.js"></script>
+      <!-- fijar Columnas-->
+<script src="terceros/DataTables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js"></script>
+      
+      <link rel="stylesheet" type="text/css" href="terceros/DataTables/extensions/FixedColumns/css/fixedColumns.bootstrap.css">
+       <!--link rel="stylesheet" type="text/css" href="terceros/DataTables/extensions/FixedColumns/css/fixedColumns.bootstrap4.css"-->
+        <!--link rel="stylesheet" type="text/css" href="terceros/DataTables/extensions/FixedColumns/css/fixedColumns.dataTables.css"-->
+       <!--link rel="stylesheet" type="text/css" href="terceros/DataTables/extensions/FixedColumns/css/fixedColumns.foundation.css"-->
+      
+      <script type="text/javascript" language="javascript" class="init">
+	
+
+var table;
+
+$(document).ready(function() {
+    
+    function filterColumn( value, col ) {
+    table.column(col).search(  value ? '^'+value+'$' : '', true, false  ).draw();
+  }
+    $('#antiguedad').on('change', function () {
+        val=$(this).val();
+      //  alert(val)
+    filterColumn(val, 10);
+       // 
+  })
+    $('#tipo_adquisicion').on('change', function () {
+        val=$(this).val();
+      //  alert(val)
+    filterColumn(val, 11);
+  })
+    
+    $('button').on('click', function () {
+        val=$(this).val();
+        //alert(val)
+        filterColumn(val, 12);
+  })
+ // Setup - add a text input to each footer cell
+    $('#inventario tfoot th').each(
+        function () {
+             var title = $(this).text();
+        if((title=='EDO FUNCIONAL')||(title=='VER/EDITAR')){
+            
+        }
+        else{
+       
+        $(this).html( '<input type="text" id="'+title+'" placeholder="'+title+'"  class="text-info fw-bolder" style="width:80px"/>' );}
+    } );
+     // DataTable
+    var table = $('#inventario').DataTable(
+	{
+		//dom: 'Bfrtip',
+        "pageLength": 25,
+        "stateSave": true,
+		"scrollX": true,
+        
+		"ajax": "php/data/mysql2jsonInventario_render.php",
+        "deferRender": true,
+		"columns": [
+			
+			/*{ "data": "NO_CONTROL", 
+            "render":function(data, type, row){
+               
+                 if(row['OBSOLESCENCIA']==1){
+           return '<div class="sr-text">'+row['NO_CONTROL']+'</div>';
+        }else if (row['OBSOLESCENCIA']==3)
+        { return '<div class="o-text">'+row['NO_CONTROL']+'</div>';
+           }else if (row['OBSOLESCENCIA']==2)
+        { return '<div class="rc-text">'+row['NO_CONTROL']+'</div>';
+        
+        }else{
+            return '<div class="no-text">'+row['NO_CONTROL']+'</div>';
+        }
+            }},
+            { "data": "EDO_FUNCIONAL_EQUIPO",
+            "render":function(data, type, row){
+                
+                switch (row['EDO_FUNCIONAL_EQUIPO']) {
+    case 'NO FUNCIONA':
+        img="img/error_16.png";// No Funciona	
+        break;
+    case 'PARCIALMENTE':
+       img="img/warning_16.png";// Transito
+        break;
+    default:
+       img="img/done_16.png";
+}
+                return '<img src="'+img+'" /> <br/><div style="font-size:10px; font-weight:bold;">'+row['NO_ORDEN']+'</div>';
+            }},*/
+			{ "data": "EQUIPO", 
+            "render":function(data, type, row){
+                //console.log(row['GARANTIA'])
+                g=row['GARANTIA']
+                garantia=new Date(g);
+                
+                let datenow = new Date();
+              
+            
+                // Garantía
+                if (g==null){
+                  return data+'<span class="badge bg-secondary">Garantía null</span>';  
+                }
+                else if(datenow < garantia){
+                return data+'<span class="badge bg-primary">Garantía</span>';}else{
+                return data
+                }
+            } },
+			{ "data": "MARCA" },
+			{ "data": "MODELO" },
+			
+	
+			{ "data": "CONVENIO_EVENTO" },
+			
+			
+			
+			{ "data": "FECHA_COMPRA" },// FECHA DE RECEPCION
+			
+			/*
+            { "data": "ANTIGUEDAD", 
+            },
+            { "data": "COMPRA_POR", 
+            },
+             { "data": "OBSOLESCENCIA", 
+            },*/
+			
+            { "data": "ID_EQUIPO_INVENTARIO",
+            "render":function(data, type, row){
+                return '<a href="modificarEquipo.html?idEquipo='+data+'" class="btn btn-sm btn-outline-info">VER/EDITAR</a>';
+            }
+            },
+            
+            { "data": "ID_EQUIPO_INVENTARIO",
+            "render":function(data, type, row){
+                return '<a href="modificarEquipo.html?idEquipo='+data+'" class="btn btn-sm btn-outline-info">CONSULTAR</a>';
+            }
+            },
+            
+            { "data": "ID_EQUIPO_INVENTARIO",
+            "render":function(data, type, row){
+                return '<a href="modificarEquipo.html?idEquipo='+data+'" class="btn btn-sm btn-outline-info">USAR</a>';
+            }
+            }/*,
+			{"data": "docst",
+             "render":function(data, type, row){
+                 
+                 
+if(row['docst']==0){ 
+consultar='<a href="consultarDocumentos.html?ID_EQUIPO_INVENTARIO='+row['ID_EQUIPO_INVENTARIO']+'" class="btn btn-sm btn-outline-secondary">sin documentos</a>';
+}
+else if((row['docst']>=1)&&(row['docst']<=3)){
+    consultar='<a href="consultarDocumentos.html?ID_EQUIPO_INVENTARIO='+row['ID_EQUIPO_INVENTARIO']+'" class="btn btn-sm btn-outline-warning">Documentos parciales</a>';}
+    else if(row['docst']>=4){
+        consultar='<a href="consultarDocumentos.html?ID_EQUIPO_INVENTARIO='+row['ID_EQUIPO_INVENTARIO']+'" class="btn btn-sm btn-outline-success">Documentos completos</a>';}
+                 return consultar;
+                 
+             }
+            }*/
+		] ,
+         /*"aoColumnDefs": [
+                 {"sClass": "dt_col_hide", "aTargets": [10]},
+                {"sClass": "dt_col_hide", "aTargets": [11]},
+              {"sClass": "dt_col_hide", "aTargets": [12]}
+              ],
+        fixedColumns: {
+        left: 1
+    },*/
+        processing: true,
+        
+       
+         /*initComplete: function () {
+            this.api().columns([9]).every( function () {
+                var column = this;
+                var select = $('<select class="text-info"><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }*/
+		
+
+	}	
+								);
+    
+     // Restore state
+    var state = table.state.loaded();
+    if ( state ) {
+      table.columns().eq( 0 ).each( function ( colIdx ) {
+        var colSearch = state.columns[colIdx].search;
+        
+        if ( colSearch.search ) {
+          $( 'input', table.column( colIdx ).footer() ).val( colSearch.search );
+        }
+      } );
+      
+      table.draw();
+    }
+    
+      // Apply the search
+    table.columns().every( function () {
+        var that = this;
+
+        $( 'input', this.footer() ).on( 'keyup change clear', function () {
+            
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+                
+                   
+            }
+        } );
+    } );
+
+   
+  
+
+    $('#inventario tbody').on( 'click', '#consultar', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        
+//window.location.href = "consultarDocumentos.html?ID_EQUIPO_INVENTARIO="+data["ID_EQUIPO_INVENTARIO"];
+    } );
+    
+    $('#exportCSV').on( 'click', function () {
+        
+        
+         var inputType = "string";
+    var stepped = 0, rowCount = 0, errorCount = 0, firstError;
+    var start, end;
+    var firstRun = true;
+    var maxUnparseLength = 100000000000;
+    
+    var config= {
+		delimiter: ",",	// auto-detect
+		header: true,
+	newline: "\r\n",
+	quoteChar: '"',
+	escapeChar: '"',
+	header: false,
+	transformHeader: undefined,
+	dynamicTyping: false,
+	preview: 0,
+	encoding: "UTF-8",
+	worker: false,
+	comments: false,
+	step: undefined,
+	complete: undefined,
+	error: undefined,
+	download: true,
+	downloadRequestHeaders: undefined,
+	skipEmptyLines: false,
+	chunk: undefined,
+	fastMode: undefined,
+	beforeFirstChunk: undefined,
+	withCredentials: undefined,
+	transform: undefined,
+	delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+	};
+    
+    var jsonLength = table.rows( { filter : 'applied'} ).nodes().length;
+    
+    var json = table.rows( { filter : 'applied'} ).data()
+    
+    var x=[];
+   //console.log(json)
+    //console.log(jsonLength)
+        
+       /* '<div class="sr-text">','</div>';
+       '<div class="o-text">','<div class="rc-text">', '<div class="no-text">'*/
+        
+      
+    
+    for (i = 0; i < json.length; i++) {
+          x_data=json[i]["NO_CONTROL"];
+       
+    x.push(x_data);
+}
+       
+     x= JSON.stringify(x)
+     
+      console.log(x)
+        // hacer ajax --->
+     
+           $.ajax({ 
+                            type: "POST", 
+                            url: "php/CSV/csv_inv_filtrado.php", 
+                            data: { 
+                                array: x , 
+                               
+                            } 
+                        }).done(function( msg ) {
+//console.log( msg );
+               //let csvContent = "data:text/csv;charset=utf-8," +msg
+               const data = msg;
+    
+               
+               
+               //start = now();
+			var csv = Papa.unparse(data, config);
+			//end = now();
+
+			console.log("Unparse complete");
+               
+           // var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
+  //keyboard: false
+//})
+   
+               
+			//console.log("Time:", (end-start || "(Unknown; your browser does not support the Performance API)"), "ms");
+			
+			if (csv.length > maxUnparseLength)
+			{
+				csv = csv.substr(0, maxUnparseLength);
+				console.log("(Results truncated for brevity)");
+			}
+
+			//console.log(csv);
+               
+                   var csvData = new Blob(["\uFEFF"+csv], {type: 'text/csv;charset=utf-8;'});
+    var csvURL =  null;
+    if (navigator.msSaveBlob)
+    {
+        csvURL = navigator.msSaveBlob(csvData, 'download.csv');
+    }
+    else
+    {
+        csvURL = window.URL.createObjectURL(csvData);
+    }
+
+    var tempLink = document.createElement('a');
+    tempLink.href = csvURL;
+    tempLink.setAttribute('download', 'download.csv');
+    tempLink.click();
+$('#exampleModal').hide();
+/*----*/
+
+                            
+  });
+        
+    })// FIN EXPORT CSV 
+    
+ $('#exportXLS').on( 'click', function () {
+     //alert();
+    
+     var jsonLength = table.rows( { filter : 'applied'} ).nodes().length;
+    
+    var json = table.rows( { filter : 'applied'} ).data()
+    
+    var x=[];
+    //console.log(json.length)
+    //console.log(jsonLength)
+    
+    for (i = 0; i < json.length; i++) {
+    x.push(json[i]["NO_CONTROL"]);
+}
+       
+     x= JSON.stringify(x)
+     
+     $('#array').val(x)
+     // console.log(x)
+      
+    
+ })    
+  $('#printFormat').on( 'click', function () {
+     
+     
+    var jsonLength = table.rows( { filter : 'applied'} ).nodes().length;
+    
+    var json = table.rows( { filter : 'applied'} ).data()
+    
+    var x=[];
+    //console.log(json.length)
+    //console.log(jsonLength)
+    
+    for (i = 0; i < json.length; i++) {
+    x.push(json[i]["NO_CONTROL"]);
+}
+       
+     x= JSON.stringify(x)
+     
+     $("#val").val(x);
+     
+     $('#modalFormat').modal('show');
+      //console.log(x)
+     
+ })
+    
+
+
+ function getCount(where) {
+	   	//console.log(where + ''+ group)	
+    var funciona     = 0;
+	var noFunciona   = 0;
+	var parcialmente = 0;
+	var noDisponible = 0;
+    for (var i = 0; i < where.length; i++) {
+	
+	//console.log(where+[i]+'.'+group)	
+	   switch (where[i].EDO_F) {
+		
+		case '1': // No funciona
+		noFunciona++;
+		break;
+		case '2': // funciona
+		funciona++;
+		break;
+		case '3': // Parcialmente
+		parcialmente++;
+		break;
+		default:
+		noDisponible++;
+		break;
+
+	  } 
+	// console.log(where+[i]+'.'+group)
+        /*if (where[i].EDO_F == 2) { funciona++;
+        }*/	
+    } 
+}
+		
+	table.on( 'xhr', function () {
+    var json = table.ajax.json();
+   // alert( json.data.length +' row(s) were loaded' );
+   //alert( json.data[0].EDO_F +  json.data[0].NO_CONTROL+' row(s) were loaded' );
+   
+   var funciona=getCount(json.data)
+   //console.log(funciona)			
+} );
+
+
+				}
+	
+						
+							);
+
+	</script>
+
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-verde-fuerte flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">SIAEM WEB</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!--div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#">Salir</a>
+    </div>
+  </div-->
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">
+              <span data-feather="home"></span>
+              Principal
+            </a>
+          </li>
+          <li type="button">
+            <a class="btn btn-success" href="nuevoEquipo.html">
+              <span data-feather="file"></span>
+              Nuevo Formato
+            </a>
+          </li>
+          <!--li class="nav-item">
+            <a class="nav-link" href="menuDocumentos.html">
+              <span data-feather="folder-plus"></span>
+              Documentos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="menu_kequipos.html">
+              <span data-feather="list"></span>
+              Catálogo de Equipos
+            </a>
+          </li-->
+          
+        </ul>
+
+        <!--h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <a class="link-secondary" href="menuInventario_historico.html" aria-label=""><span data-feather="clock"></span><span>Inventario Historico</span></a>
+         
+    
+        </h6-->
+          
+        </div>
+         
+     
+        
+  
+
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+       
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">FORMATOS DE RECEPCIÓN</h1>
+          <img src="images/resultados.png" style="width:5%"/>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <a href="#" class="btn btn-sm btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal">Exportar CSV</a>
+              
+                    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje del SIAEM</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Advertencia: La extensión CVS puede cambiar el formato de algunos datos. Por ejemplo, en casos donde el número de serie es muy extenso, podrán observarse como exponencial
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="exportCSV" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+            <button
+               class="btn btn-sm btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#modalXLS" id="exportXLS">Exportar XLS </button>
+              
+              
+              <div class="modal fade" id="modalXLS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <form name="xls_export" method="post" action="php/XLS/ExportaInventario_filtrado.php">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje del SIAEM</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Su solicitud esta siendo atendida, espere unos momentos <input type="hidden" name="array" id="array" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <input type="submit" class="btn btn-primary" id="exportXLS" data-bs-dismiss="modal" value="Aceptar">
+      </div>
+      </div></form>
+  </div>
+</div>
+              
+                   <button
+               class="btn btn-sm btn-outline-primary" id="printFormat"> <span data-feather="printer"></span>Imprimir PDF </button>
+              
+                 <!-- Modal -->
+<div class="modal fade" id="modalFormat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"> <form method="post" action="ImprimirInventario_filtrado.php">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mensaje del SIAEM</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Se esta procesando tu solicitud para los equipos solicitados, puede tomar unos minutos ¿Deseas Continuar?
+          
+          <input type="text" name="array" id="val"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+       
+          
+          
+          
+        <input type="submit" class="btn btn-primary" id="" data-bs-dismiss="modal" value="Aceptar">
+      </div></form>
+    </div>  
+  </div>
+</div>
+
+   
+          </div>
+         
+        </div>
+      </div>
+        <!--<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> <div class="btn-toolbar mb-2 mb-md-0">ANTIGÜEDAD <select id="antiguedad"><option value="">Todos</option></select></div>    <div class="btn-toolbar mb-2 mb-md-0">EQUIPO: <select id="tipo_adquisicion"><option value="">TODOS</option>  <option value="LICITACION">LICITACION</option>
+        <option value="DONACION">DONACION</option>
+        <option value="INVITACION A TRES">INVITACION A TRES</option>
+        <option value="COMPRA DIRECTA">COMPRA DIRECTA</option>
+        <option value="DESCONOCIDO">DESCONOCIDO</option></select></div><div class="btn-toolbar mb-2 mb-md-0">
+            <!--OBSOLESCENCIA: 
+            <div class="btn-group me-1">
+                <button class="btn btn-sm btn-outline TODOS-A" value="">VER TODOS</button>
+                <button class="btn btn-sm btn-outline OBSOLETO" value="3">OBSOLETO</button>
+                <button class="btn btn-sm btn-outline SINREFACCIONES" value="1">REFACCIONES ESCASAS</button>
+                <button class="btn btn-sm btn-outline REPARACIONCOSTOSA" value="2">REPARACIÓN COSTOSA</button>
+                <button class="btn btn-sm btn-outline NOOBSOLETO" value="0">NO OBSOLETO</button>
+             a class="btn btn-sm btn-outline TODOS-A" href="menuInventario.html">VER TODOS</a> 
+                <a class="btn btn-sm btn-outline OBSOLETO" href="menuInventario_o.html">OBSOLETO</a> 
+             <a class="btn btn-sm btn-outline SINREFACCIONES" href="menuInventario_re.html"> REFACCIONES ESCASAS</a> 
+             <a class="btn btn-sm btn-outline REPARACIONCOSTOSA" href="menuInventario_rc.html">REPARACIÓN COSTOSA </a>
+             <a class="btn btn-sm btn-outline NOOBSOLETO" href="menuInventario_no.html">NO OBSOLETO</a
+            </div>
+            </div> </div> -->
+      <div class="table-responsive" style="margin-top:0px">
+                
+<table id="inventario" class="table-sm table-stripe row-border order-column" cellspacing="0" width="100%">
+  <thead> 
+  <tr bgcolor="#027333" style="color:#FFF">
+   
+    <th>EQUIPO</th>
+    <th>MARCA</th>  
+    <th>MODELO</th>
+    <th>NO. DE EVENTO</th>
+    <th>FECHA DE RECEPCIÓN</th>
+    <th>VER/EDITAR</th>
+    <th>CONSULTAR</th>
+    <th>USAR</th>
+      
+  </tr>
+  </thead>
+  <tbody></tbody>
+    
+  <tfoot>
+  <tr>  
+      
+    <th>EQUIPO</th>
+    <th>MARCA</th>  
+    <th>MODELO</th>
+    <th>NO. DE EVENTO</th>
+    <th>FECHA DE RECEPCIÓN</th>
+    <th>VER/EDITAR</th>
+    <th>CONSULTAR</th>
+    <th>USAR</th>
+      
+  </tr>
+  </tfoot>
+  </table>
+      </div>
+    </main>
+  </div>
+</div>
+ 
+
+    <script src="terceros/bootstrap5/bootstrap-5.0.2-examples/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="terceros/bootstrap5/bootstrap-5.0.2-examples/dashboard/dashboard.js"></script>
+      
+              
+      
+  </body>
+</html>
+<script type="text/javascript" language="javascript" class="init">
+
+$(document).ready(function() {
+
+      $.get("php/data/getAntiguedad.php", function(data){
+        // FALLA REPORTADA
+         
+             response=$.parseJSON(data); 
+         
+          $.each(response, function(key, val){
+             $('#antiguedad').html($('#antiguedad').html()+'<option value="' + val.ANTIGUEDAD +  '">' + val.ANTIGUEDAD +'</option>'); 
+              
+          })
+         
+         
+    });
+    
+})
+
+</script>
+	

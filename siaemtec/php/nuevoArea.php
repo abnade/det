@@ -1,0 +1,19 @@
+<?php
+include_once('connection/conJSON.php');
+
+$SERVICIO=$_POST['SERVICIO'];
+$AREA=$_POST['AREA'];
+$CUERPO=$_POST['CUERPO'];
+$CODIGO_SERVICIO=$_POST['CODIGO_SERVICIO'];
+$CODIGO_AREA=$_POST['CODIGO_AREA'];
+$EXTENSION=$_POST['EXTENSION'];
+$RESPONSABLE=$_POST['RESPONSABLE'];
+
+$sql_insert="INSERT INTO areasinventario(SERVICIO, AREA, CUERPO, CODIGO_SERVICIO, CODIGO_AREA, EXTENSION, RESPONSABLE) VALUES ('$SERVICIO', '$AREA', '$CUERPO', '$CODIGO_SERVICIO', '$CODIGO_AREA', '$EXTENSION', '$RESPONSABLE')";
+
+$row_insert=setArraySQL($sql_insert);
+
+ echo json_encode($row_insert);
+
+
+?>

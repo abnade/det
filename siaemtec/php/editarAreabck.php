@@ -1,0 +1,21 @@
+<?php
+include_once('connection/conJSON.php');
+error_reporting(E_ALL);
+$ID_AREA=$_GET['IDAREA'];
+$SERVICIO=$_POST['SERVICIO'];
+$AREA=$_POST['AREA'];
+$CUERPO=$_POST['CUERPO'];
+$EXTENSION=$_POST['EXTENSION'];
+$CODIGO_SERVICIO=$_POST['CODIGO_SERVICIO'];
+$CODIGO_AREA=$_POST['CODIGO_AREA'];
+$RESPONSABLE=$_POST['RESPONSABLE'];
+
+
+$sql="UPDATE areasinventario SET  SERVICIO='$SERVICIO', AREA='$AREA', CUERPO='$CUERPO', CODIGO_SERVICIO='$CODIGO_SERVICIO', CODIGO_AREA='$CODIGO_AREA', RESPONSABLE='$RESPONSABLE', EXTENSION='$EXTENSION'  WHERE ID_AREA='$ID_AREA'";
+
+//echo json_encode($sql);
+
+$row=setArraySQL($sql);
+
+echo json_encode($row);
+?>
