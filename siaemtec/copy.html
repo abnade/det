@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+  <title>Copiar Equipo</title>
+  <link rel="stylesheet" href=
+"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity=
+"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous">
+  
+  <script src=
+"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+  </script>
+  <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+  </script>
+  <!--script src=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+  </script-->
+  <link rel="stylesheet" href="css/ddt.css?date=130523">
+    
+<!--------------- Codigo en Java Script--------------->
+<!--script src="js/jquery-1.10.2.js"></script-->
+<script src="js/funciones.js?update=28072021"></script>
+  <script>
+      
+    function getURLParameters(url){ 
+          value= url.substring(url.lastIndexOf(".html")+5);   
+    return value; }
+      
+    $(document).ready(function () {
+
+        
+        var url=window.location.href;
+        var param= getURLParameters(url);
+        var ID_EQUIPO;
+        var ID_UBICACION
+        ID_EQUIPO_INVENTARIO=param.split('=');
+        $.get("php/data/getEquipo1.php?ID_EQUIPO_INVENTARIO="+ID_EQUIPO_INVENTARIO[1], function(equipo_inventario){ 
+        equipo_inventario=$.parseJSON(equipo_inventario); 
+             $('#EQUIPO').html( equipo_inventario[0]['EQUIPO']) 
+              $('#NO_CONTROL').html( equipo_inventario[0]['NO_CONTROL']) 
+              $('#MODELO').html( equipo_inventario[0]['MODELO']) 
+              $('#MARCA').html( equipo_inventario[0]['MARCA']) 
+              $('#SERVICIO').html( equipo_inventario[0]['SERVICIO']) 
+              $('#UBICACION').html( equipo_inventario[0]['UBICACION'])
+              ID_EQUIPO=equipo_inventario[0]['ID_EQUIPO'];
+              ID_UBICACION=equipo_inventario[0]['ID_AREA'];
+             $('#IDEQUIPO').val(ID_EQUIPO_INVENTARIO[1]);
+            
+        })
+        
+      
+      // Denotes total number of rows
+      var rowIdx = 0;
+  
+      // jQuery button click event to add a row
+      $('#addBtn').on('click', function () {
+     
+        // Adding a row inside the tbody.
+        $('#tbody').append(`<tr id="R${++rowIdx}">
+             <td class="row-index text-center">
+             <p>Copia ${rowIdx}</p></td><td>
+<select name="ID_AREA" id="ID_AREA_${rowIdx}"  class="select" ><option value="" selected="selected"> Seleccione ... </option></select>
+             </td>
+<td class="text-center">
+                <input type="text" value=" " id="SERIE_${rowIdx}" name="SERIE_${rowIdx}" class="entrada-texto"/>
+                </td>
+<td class="text-center">
+                <input type="text" value=" " id="CONTROL_${rowIdx}" name="CONTROL_${rowIdx}"/>
+                </td>
+              <td class="text-center">
+                <button class="btn btn-danger remove"
+                  type="button">Quitar</button>
+                </td>
+              </tr>`);
+          
+          
+                     // Catalogo Ubicacion
+          var catalogo_ubicacion=    $.ajax({
+                method: "GET",
+                url: "php/data/catalogo_ubicacion.php"
+                });
+                catalogo_ubicacion.done(function( response, textStatus, jqXHR ) {        
+                    response= $.parseJSON(response);
+                    $.each(response, function(key, val){
+                       // console.log(val.DRUG)
+      $($("select[id^=" + 'ID_AREA_' + "]")).append('<option value="' + val.ID_AREA + '">' + val.SERVICIO+'/'+val.AREA+'</option>');
+    })
+                    
+                    
+                $("select option[value="+ID_UBICACION+"]").attr('selected', 'selected'); // checar
+                });
+        
+       $('#total').val(rowIdx);   
+          
+      });
+  
+      // jQuery button click event to remove a row.
+      $('#tbody').on('click', '.remove', function () {
+        // Getting all the rows next to the row
+        // containing the clicked button
+        var child = $(this).closest('tr').nextAll();
+        // Iterating across all the rows 
+        // obtained to change the index
+        child.each(function () {
+          // Getting <tr> id.
+          var id = $(this).attr('id');
+          var idin=id.split("_")
+          // Getting the <p> inside the .row-index class.
+          var idx = $(this).children('.row-index').children('p');
+          // Gets the row number from <tr> id.
+          var dig = parseInt(id.substring(1));
+          // Modifying row index.
+          idx.html(`Row ${dig - 1}`);
+          // Modifying row id.
+          $(this).attr('id', `R${dig - 1}`);
+        });
+        // Removing the current row.
+        $(this).closest('tr').remove();
+        // Decreasing total number of rows by 1.
+        rowIdx--;
+          
+          $('#total').val(rowIdx); 
+      });
+      /* ubication_info  */
+           
+     $('#tbody').on('click', '.entrada-texto', function () {
+         //alert('oli')
+         
+         
+               // Getting all the rows next to the row
+       // containing the clicked button
+        var child = $(this).closest('tr').nextAll();
+        // Iterating across all the rows 
+        // obtained to change the index
+        // child.each(function () {
+        // Getting <tr> id.
+        var id = $(this).attr('id');
+          // Getting the <p> inside the .row-index class.
+        var idx = $(this).children('.row-index').children('p');
+         console.log(idx)
+          // Gets the row number from <tr> id.
+        var dig = parseInt(id.substring(1));
+           //
+        var subid = id.split('_');
+        console.log('subid:'+ subid[1])
+         
+        var conceptName = $('#ID_AREA_'+subid[1]).find(":selected").val();           
+    
+         DP='';    
+         ID_UBICACION=conceptName;//$('#select4').val();
+         
+       
+                  $.get( "php/data/getNoControl.php?DP="+DP+"&ID_EQUIPO="+ID_EQUIPO+"&ID_UBICACION="+ID_UBICACION, function( data ) {
+                        
+        //$("#CONTROL_"+subid[1]).val(data);
+          var newNC; 
+          var tempNC;
+          //preguntar si es mayor que 1
+         if (parseInt(subid[1])==1){
+             
+             newNC= data ;
+             console.log('linea 1') 
+             $("#CONTROL_"+subid[1]).val(newNC);   
+             
+            
+         } else {
+             
+             //console.log(subid[1])      
+            //for(var i = 1; i < subid[1]; i++) {
+                
+                //console.log(':)'+i)
+                
+                id_text="#CONTROL_"+parseInt(subid[1]);
+                console.log(id_text)
+                //nc=$(id_text).val();
+                
+                /*console.log('-:'+data);*/
+               // console.log('val:'+nc);
+                //console.log(data);
+                //console.log('1.-'+nc+  ' 2.-'+data)
+                //if(nc.trim()==data.trim()){
+                    
+                    
+                    tempNC=data.split('-');
+                    numNC=parseInt(tempNC[3])+(parseInt(subid[1])-1);  
+                  
+                    if(numNC<10){
+                        numN_C='0'+numNC;
+                    
+                    newNC=tempNC[0]+'-'+tempNC[1]+'-'+tempNC[2]+'-'+numN_C;
+                    console.log(newNC)
+                    $("#CONTROL_"+subid[1]).val(newNC);   
+                    }else{
+                        numN_C=numNC; 
+                    newNC=tempNC[0]+'-'+tempNC[1]+'-'+tempNC[2]+'-'+numN_C;
+                    console.log(newNC)
+                    $("#CONTROL_"+subid[1]).val(newNC);   
+                    }
+   
+               }
+                       
+                  }
+       ); 
+         
+     })
+    
+    
+              
+           $('#submit').click(function(){
+                           // Prevent default posting of form - put here to work in case of errors
+    event.preventDefault();
+
+    // Abort any pending request
+   
+    // setup some local variables
+    var $form = $('#copiaEquipo');
+
+    // Let's select and cache all the fields
+    var $inputs = $form.find("input, input:hidden, select, select:hidden, button, textarea, checkbox, radio");
+
+    // Serialize the data in the form
+    var serializedData = $form.serialize();
+    //console.log(serializedData); 
+               
+    // Fire off the request to /form.php
+   request = $.ajax({
+        url: "php/copiaEquipo.php",
+        type: "post",
+        data: serializedData
+    });
+ 
+    // Callback handler that will be called on success
+    request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        
+        console.log(response);
+        //response=response.parse;
+        
+    //response=response.substr(1,response.length);
+    //imprimir='OrdenyDictamenpdf.php?'+response
+      
+     // console.log(imprimir)
+     window.location.href='menuInventario.html'; 
+
+    }
+                );
+    // Callback handler that will be called on failure
+    request.fail(function (jqXHR, textStatus, errorThrown){
+        // Log the error to the console
+        console.error(
+            "The following error occurred: "+
+            textStatus, errorThrown
+        );
+    });
+
+    // Callback handler that will be called regardless
+    // if the request failed or succeeded
+    request.always(function () {
+        // Reenable the inputs
+        $inputs.prop("disabled", false);
+    });
+       
+               
+           }) // Fin submit
+     
+     
+     
+    })
+    //});
+  </script>
+</head>
+  
+<body>
+     <div class="container pt-4">
+         <h4>Copia de </h4>
+    <div class="row">
+         <div class="col verde-fuerte txt-12" >EQUIPO: <div id="EQUIPO" ></div></div>
+        <div class="col verde-fuerte txt-12">MARCA: <div id="MARCA"></div></div>
+        <div class="col verde-fuerte txt-12">MODELO: <div id="MODELO"></div></div>        
+         
+         </div>
+    
+    </div>
+    
+    <div class="container pt-4">
+    <div class="row">
+         <div class="col verde-fuerte txt-12">SERVICIO: <div id="SERVICIO"></div></div>
+        <div class="col verde-fuerte txt-12">UBICACION: <div id="UBICACION"></div></div>
+         <div class="col verde-fuerte txt-12">NO CONTROL: <div id="NO_CONTROL"></div></div>
+        </div></div>
+    
+      <form action="" method="post" name="copiaEquipo" id="copiaEquipo">
+
+  <div class="container pt-4">
+
+      <input type="hidden" value="" name="IDEQUIPO" id="IDEQUIPO"/>
+      
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th></th>
+            <th class="text-center">UBICACION/SERVICIO</th>
+              <th>SERIE</th><th>No CONTROL:</th><th>Quitar</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+  
+        </tbody>
+      </table>
+        
+        <input type="hidden" name="total" id="total" value=""/>
+    </div>
+    <button class="btn btn-md btn-primary" 
+      id="addBtn" type="button">
+        Agregar copia
+    </button>
+      
+      <div class="container pt-4">
+          <div class="row">
+          
+            <div class="col"> <a href="menuInventario.html" class="btn boton-secundario">Cancelar</a></div>
+                <div class="col"><input type="submit" id="submit" value="Ingresar todos" style="" class="boton-primario"/></div>
+          </div>
+        
+    
+      </div>
+  </div></form>
+</body>
+   
+</html>
