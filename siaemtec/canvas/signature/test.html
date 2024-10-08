@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+      
+    <script type="text/javascript" src="html2canvas.js"></script>
+      
+      
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
+      <style>
+		body {
+			padding-top: 10px;
+			padding-bottom: 10px;
+            padding-left: 30px;
+            padding-bottom: 30px;
+            text-align: center; 
+            font-family: calibri;
+            font-size: 12px;
+            /* hide vertical*/
+		}
+        
+            .top { 
+            margin-top: 20px; 
+        } 
+          
+        h1 { 
+            color: green; 
+        } 
+          
+        input { 
+            background-color: transparent; 
+            border: 0px solid; 
+            width: 300px;
+            font-weight: bolder;
+        } 
+      
+        
+
+        
+        	#sig-canvas-participante {
+			/*border: 0.5px solid #CCCCCC;
+			border-radius: 5px;*/
+			cursor: crosshair;
+            background-image: url(../img/Participante.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            
+		}
+        
+        	#sig-canvas-investigador {
+			/*border: 0.5px solid #CCCCCC;
+			border-radius: 5px;*/
+			cursor: crosshair;
+            background-image: url(../img/Investigador.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            
+		}
+        
+        	#sig-canvas-testigo1 {
+			/*border: 0.5px solid #CCCCCC;
+			border-radius: 5px;*/
+			cursor: crosshair;
+            background-image: url(../img/Testigos.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            
+		}
+        
+        	#sig-canvas-testigo2 {
+			/*border: 0.5px solid #CCCCCC;
+			border-radius: 5px;*/
+			cursor: crosshair;
+            background-image: url(../img/Testigos.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            
+		}
+        
+        
+	</style>
+         <!-- Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+       <script>
+$(document).ready(function() {
+    
+      function getURLParameters(url){ 
+          value= url.substring(url.lastIndexOf(".html")+5);   
+          return value; }
+    
+     var url=window.location.href;
+            
+            var param= getURLParameters(url);
+                idPATIENT=param.split('=');
+
+                 console.log(idPATIENT[1
+                                      ])
+                 
+                  $.getJSON("../../php/data/residentes/paciente.php"+param, function(result_paciente){
+                      //console.log(result_paciente)
+                      //document.getElementById("PATIENTname").value=result_paciente[0]["PATIENTname"]+' '+result_paciente[0]["PATIENTlastname"]+' '+ result_paciente[0]["PATIENTmiddlename"];
+        
+        $("#PATIENTname").val(result_paciente[0]["PATIENTname"]+' '+result_paciente[0]["PATIENTlastname"]+' '+ result_paciente[0]["PATIENTmiddlename"])
+        $("#PATIENT_idPATIENT").val(result_paciente[0]["idPATIENT"])
+    })
+                  
+                  
+                  $.getJSON("../../php/data/getPHYSICIANdata.php", function(result_physician){
+        //console.log(result_physician)
+        $("#PHYSICIANname").val(result_physician[0]["PHYSICIANname"]+' '+result_physician[0]["PHYSICIANsurname"])
+        
+        $("#PHYSICIAN_idPHYSICIAN").val(result_physician[0]["idPHYSICIAN"])
+        
+        
+    })
+    
+                 
+                 })
+
+        
+    </script>
+  </head>
+  <body>
+      <div class="container">   
+    	<div class="row">
+			<div class="col-md-12">
+                <input type="hidden" id="PATIENT_idPATIENT" value="">
+                <input type="hidden" id="PHYSICIAN_idPHYSICIAN" value="">
+                  <div style="margin: auto" align="center"><img src="../img/LogosSaludInr.jpg" height="55px"></div> 
+				 
+        <p style="text-decoration:underline; font-weight:bolder; text-align:left;  font-size:15.5px; margin-top: 20px; ">Observación: Cada institución participante se hará responsable del tratamiento y seguimiento
+de cada uno de sus pacientes.</p>
+                <p style="text-align:center;margin-top:30px"><strong>FIRMA DE CONSENTIMIENTO</strong></p>
+        
+        <div><p style="text-align:justify">Yo, <input type="text" id="PATIENTname" value="" style="border-bottom: 1px solid #000000; text-align:center; width=100px"/>, manifiesto que fui informado (a) del
+propósito, procedimientos y tiempo de participación y en pleno uso de mis facultades, es mi
+voluntad participar en esta investigación titulada. <strong>Implementación de un modelo de atención
+para la prevención de segundas fracturas vertebrales y no vertebrales atribuibles a
+osteoporosis. Estudio multicéntrico cuasi-esperimental antes-después.</strong></p>
+            <p style="text-align:justify">No omito manifestar que he sido informado (a) clara, precisa y ampliamente, respecto de los
+procedimientos que implica esta investigación así como de los riesgos a los que estaré expuesto
+ya que dicho procedimiento es considerado de <strong>riesgo mínimo.</strong> </p>
+
+            <p style="text-align:justify">He leído y comprendido la información anterior, y todas mis preguntas han sido respondidas de
+manera clara y a mi entera satisfacción, por parte del Dr (a):     <input id="PHYSICIANname" value="" style="border-bottom: 1px solid #000000; text-align:center"/></p>
+</div>
+			</div>
+		</div>
+      
+    <div class="container" id='container-sig' style="width:600px important!; heigth:600px important!">
+      		<div class="row">
+			<div class="col">
+		 		<canvas id="sig-canvas-participante" width="250" height="200">
+		 			
+		 		</canvas>
+            </div>
+            <div class="col">
+                <canvas id="sig-canvas-investigador" width="250" height="200">
+		 			
+		 		</canvas>
+              
+		 	</div>
+		</div>
+        
+        	<div class="row">
+			<div class="col">
+		 		
+               <h4 style="">TESTIGOS</h4>
+		 	</div>
+		</div>
+        	<div class="row">
+			<div class="col">
+		 
+                <canvas id="sig-canvas-testigo1" width="250" height="200">
+		 		
+		 		</canvas>
+                </div><div class="col">
+                <canvas id="sig-canvas-testigo2" width="250" height="200">
+		 		
+		 		</canvas>
+		 	</div>
+		</div>
+        
+        
+        
+    </div><br/>
+           <div class="row">
+            <h4>Borrar firma de:</h4>
+              <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Elige la firma
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <button class="btn btn-user top" id="sig-clearBtn-p">Participante</button>
+                <button class="btn btn-user top" id="sig-clearBtn-i">Investigador</button>
+                <button class="btn btn-user top" id="sig-clearBtn-t1">Testigo 1</button>
+                <button class="btn btn-user top" id="sig-clearBtn-t2">Testigo 2</button>
+            
+    </div>
+  </div>
+
+          
+        
+        </div>
+    <input type='button' id='but_screenshot' class="btn btn-primary top" value='Guardar Firmas'>
+          <a href="javascript:history.back()" type="button" class="btn btn-danger top" id="cancel" > Cancelar</a>
+<br/>
+    
+    <!-- Script -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      
+      <script src="./signature.js?v=2"></script>
+    <script src="./signature2.js?v=2"></script>
+    <script src="./signature3.js?v=3"></script>
+    <script src="./signature4.js?v=3.1"></script>
+    
+
+    <script type='text/javascript'>
+        
+         $(function(){ 
+             $("#but_screenshot").click(function(){
+    
+            alert()
+            
+            html2canvas(document.getElementById("container-sig"),{scrollX: 0,
+        scrollY: 0}).then(function(canvas) {
+            
+        // document.body.appendChild(canvas);
+
+         // Get base64URL
+         var base64URL = canvas.toDataURL()
+          console.log(base64URL)
+           var PATIENT_idPATIENT=$("#PATIENT_idPATIENT").val();
+         var PHYSICIAN_idPHYSICIAN=$("#PHYSICIAN_idPHYSICIAN").val();
+                
+                
+         // AJAX request
+         $.ajax({
+            url: 'save_signature.php',
+            type: 'post',
+            data: {imgBase64: base64URL , 
+                   PATIENT_idPATIENT: PATIENT_idPATIENT,
+                   PHYSICIAN_idPHYSICIAN: PHYSICIAN_idPHYSICIAN},
+            success: function(data){
+               console.log('Upload successfully');
+            }
+         }).done(function( msg ) {
+    console.log( msg );
+                            window.history.back();
+                         
+       }); // end AJAX request
+                
+                
+         })
+           
+            
+        })
+                     })
+    /*   
+    function screenshot(){
+       //html2canvas(document.body).then(function(canvas) {
+
+        html2canvas(document.getElementById("container-sig"),{scrollX: 0,
+        scrollY: 0}).then(function(canvas) {
+            
+        // document.body.appendChild(canvas);
+
+         // Get base64URL
+         var base64URL = canvas.toDataURL()
+         var PATIENT_idPATIENT=$("#PATIENT_idPATIENT").val();
+         var PHYSICIAN_idPHYSICIAN=$("#PHYSICIAN_idPHYSICIAN").val();
+           console.log(base64URL)
+
+         // AJAX request
+         $.ajax({
+            url: 'save_signature.php',
+            type: 'post',
+            data: {imgBase64: base64URL , 
+                   PATIENT_idPATIENT: PATIENT_idPATIENT,
+                   PHYSICIAN_idPHYSICIAN: PHYSICIAN_idPHYSICIAN},
+            success: function(data){
+               console.log('Upload successfully');
+            }
+         }).done(function( msg ) {
+    console.log( msg );
+                            window.history.back();
+                         
+       });
+     }*/
+     </script>
+          
+          
+          </div>
+  </body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  

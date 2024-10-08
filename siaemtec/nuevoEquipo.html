@@ -1,15 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+    
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Nuevo Equipo</title>
 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" href="css/ddt.css?date=070721">
+<link href="terceros/bootstrap5/bootstrap-5.0.2-examples/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<style> 
+    
+    .table-responsive{
+        
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        
+    }
+
+    
+    </style>
     
 <!--------------- Codigo en Java Script--------------->
+    
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/funciones.js?update=28072021"></script>
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="bootstrap-autocomplete.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
+    
 <script>
     
     $(document).ready(function(){
@@ -31,7 +52,58 @@ if (mm < 10) {
         today= yyyy+ '-'+mm +'-'+dd;
         console.log(today)
         $('#FECHA_CREACION').val(today)
-            
+          
+      // Denotes total number of rows
+      var rowIdx = 0;
+  
+      // jQuery button click event to add a row
+      $('#addBtn').on('click', function () {
+        
+         $('#tbody').append(`<tr id="R${++rowIdx}">
+
+      <td class="text-start">
+        <div id="txtHint"><input type="text" value="" id="CONTROL_${rowIdx}" name="CONTROL_${rowIdx}"  placeholder="NO. DE CONTROL" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+      </td>
+      <td class="text-center">
+        <input type="text" value="" id="SERIE_${rowIdx}" name="SERIE_${rowIdx}" placeholder="SERIE" class="entrada-texto"/> 
+      </td>
+     <td class="text-end">
+      <button class="btn btn-danger remove"
+        type="button">Quitar</button>
+      </td>
+       </tr>`);
+          
+          $('#total').val(rowIdx);
+          
+      });
+        
+        // jQuery button click event to remove a row.
+      $('#tbody').on('click', '.remove', function () {
+        // Getting all the rows next to the row
+        // containing the clicked button
+        var child = $(this).closest('tr').nextAll();
+        // Iterating across all the rows 
+        // obtained to change the index
+        child.each(function () {
+          // Getting <tr> id.
+          var id = $(this).attr('id');
+          var idin=id.split("_")
+          // Getting the <p> inside the .row-index class.
+          var idx = $(this).children('.row-index').children('p');
+          // Gets the row number from <tr> id.
+          var dig = parseInt(id.substring(1));
+          // Modifying row index.
+          idx.html(`Row ${dig - 1}`);
+          // Modifying row id.
+          $(this).attr('id', `R${dig - 1}`);
+        });
+        // Removing the current row.
+        $(this).closest('tr').remove();
+        // Decreasing total number of rows by 1.
+        rowIdx--;
+          
+          $('#total').val(rowIdx); 
+      });
         
                // Catalogo Equipos
           var catalogo_equipo=    $.ajax({
@@ -61,7 +133,7 @@ if (mm < 10) {
         // Catalogo Proveedoores
           var catalogo_proveedor=    $.ajax({
                 method: "GET",
-                url: "php/data/catalogo_proveedores.php"
+                url:"php/data/catalogo_proveedores.php"
                 });
              
               
@@ -220,193 +292,265 @@ if (mm < 10) {
     
     </script>
 </head>
-
+    
 <body>
 
 <form action="" method="post" name="form1" id="form1" class="formulario bg-gris-claro">
-  <table align="center" border="0" class="" >
-   <tr valign="baseline">
-      <th colspan="4" >Datos de entrada</th>
-    </tr>
-      
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">ORIGEN DEL PRESUPUESTO:</td>
-      <td><input type="text" name="MODELO" value=""  class="entrada-texto"/></td>
-    </tr>
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">TIPO DE ADQUISICION:</td>
-      <td><select name="COMPRA_POR" class="select">
+  <div class="container" >
+   <div align="center"><h1>DATOS DE ENTRADA</h1></div>
+   <div class="row justify-content-evenly">
+    <div class="col">
+         
+      <input type="text" name="ORIGEN" value="" placeholder="ORIGEN DEL PRESUPUESTO" class="entrada-texto"/>
+                
+      <select name="COMPRA_POR" class="select">
+        <option value="">SLECCIONE TIPO DE ADQUISICIÓN</option>
         <option value="LICITACION">LICITACION</option>
         <option value="DONACION">DONACION</option>
         <option value="INVITACION A TRES">INVITACION A TRES</option>
         <option value="COMPRA DIRECTA">COMPRA DIRECTA</option>
         <option value="DESCONOCIDO">DESCONOCIDO</option>
-      </select></td>
-    </tr>
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">NO. EVENTO/CONTRATO/CONVENIO:</td>
-      <td><input type="text" name="NO_INVENTARIO" value=""  class="entrada-texto"/></td>
-    <td align="" nowrap="nowrap">NO. DE PARTIDA:</td>
-      <td><input name="ESTADO"   value="" readonly="readonly"  class="entrada-texto"/>
-       </td>
-    </tr>
-  
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap"><div align="center" style="border-top-style:solid; border-top-width:thin;"></div></th>
-    </tr>
+      </select>
+    
+    </div>
+    <div class="col">
+
+      <input type="text" name="NO_INVENTARIO" value="" placeholder="NUMERO DE EVENTO/CONTRATO/CONVENIO"  class="entrada-texto"/>
+
+      <input name="NO_PARTIDA"   value="" readonly="readonly" placeholder="NUMERO DE PARTIDA" class="entrada-texto"/>
       
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap" ><div align="center">Datos de Proveedor</div></th>
-    </tr>
-    
-    <tr valign="baseline">
-      <td>PROVEEDOR:</td>
-      <td><select name="PROVEEDOR" id="select3" onchange="getProveedorData(this.value)" class="select">
-        <option value="" selected="selected" > Seleccione ... </option>      
-        <option value="">
-      </select ></td>
-      <td align="" nowrap="nowrap">TELEFONO</td>
-      <td><input name="ESTADO"   value="" readonly="readonly"  class="entrada-texto"/>
-      </td>
-    </tr>
-    
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">REPRESENTANTE:</td>
-      <td><input type="text" name="REPRE" value=""  placeholder="" class="entrada-texto"/></td>
-      <td align="" nowrap="nowrap">INGENIERO DE SERVICIO</td>
-      <td><input type="text" name="INGE" value=""  placeholder="" class="entrada-texto"/></td>
+    </div>
+    </div>     
+      
+    <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>     
+    <div align="center"><h1>Datos de Proveedor</h1></div>
+      
+    <div class="row justify-content-evenly" >
+    <div class="col">
+        
+       <select name="PROVEEDOR" id="select3" onchange="getProveedorData(this.value)" class="select">
+       <option value="" selected="selected">PROVEEDOR:</option>
+       
+       <option value="">
+       </select>
+      
+      <input name="TELEFONO"   value="" readonly="readonly" placeholder="TELEFONO" class="entrada-texto"/>    
+        
+        
+    </div> 
+    <div class="col">
+        
+      <input type="text" name="REPRE" value=""  placeholder="REPRESENTANTE" class="entrada-texto"/>
+      
+      <input type="text" name="INGE" value=""  placeholder="INGENIERO DE SERVICIO" class="entrada-texto"/>
+      
+    </div>
+    </div>
 
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">EMAIL </td>
-      <td><input type="text" name="EMAIL_PROV" value=""  placeholder="" class="entrada-texto"/></td>
-
+      <input type="text" name="EMAIL_PROV" value=""  placeholder="EMAIL" class="entrada-texto"/>
     
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap"><div align="center" style="border-top-style:solid; border-top-width:thin;"></div></th>
-    </tr>
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap" ><div align="center">Descripción</div></th>
-    </tr>
-    
-    <tr valing="baseline">
-      <td>EQUIPO:</td>
+      <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>
+      <div align="center"><h1>Descripción</h1></div>
+      
+      <div class="row justify-content-evenly" >
+      <div class="col">
+        
       <td><select name="ID_EQUIPO" id="select2" onchange="" class="select" >
-        <option value="" selected="selected"> Seleccione ... </option>
-        <option value="">
-      </select></td>  
-      <td align="" nowrap="nowrap">CANTIDAD</td>
-      <td><input type="number" name="ANIOSGARANTIA" id="ANIOSGARANTIA" value="1" size="5" class="entrada-texto" /></td>
-    </tr>
-    
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">MARCA:</td>
-      <td><input type="text" name="MARCA" value="" class="entrada-texto" /></td>
-      <td align="" nowrap="nowrap">MODELO:</td>
-      <td><input type="text" name="MARCA" value="" class="entrada-texto" /></td>
-    </tr>
+        <option value="" selected="selected">EQUIPO:</option>
+      </select></td>
+      
+      <input type="text" name="MODELO" value="" placeholder="MODELO" class="entrada-texto"/>
+      <input type="text" name="PRECIO" value=""  placeholder="PRECIO (MXN CON IVA)" class="entrada-texto"/>
+      <div id="txtHint" ><input name="NO_CONTROL" id="NO_CONTROL" type="text" value="" placeholder="NO. DE CONTROL" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+ 
+     </div>    
+     <div class="col">
+        
+      
+      <input type="text" name="MARCA" value="" placeholder="MARCA" class="entrada-texto" />
+      <input type="number" name="CANTIDAD" id="ANIOSGARANTIA" value="" placeholder="CANTIDAD" class="entrada-texto"/>
+      <input type="text" name="VCW" value=""  placeholder="VOLTAJE/CORRIENTE/WATTS" class="entrada-texto"/>
+      <input type="text" name="SERIE" value="" placeholder="SERIE" class="entrada-texto"/>
+      
+      
+     </div>
+     </div>
+      
+      
+      <div class="table-responsive">
+      <table align="center" border="0" class="" >
+        <thead>
+          
+        </thead>
+        <tbody id="tbody">
   
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">PRECIO ($MXN CON IVA):</td>
-      <td><input type="text" name="PRECIO" value=""  placeholder="    incluye IVA" class="entrada-texto"/></td>
-      <td align="" nowrap="nowrap">SERIE:</td>
-      <td><input type="text" name="SERIE" value=""  class="entrada-texto"/></td>
-    </tr>
-    
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">  NÚMERO DE CONTROL:</td>
-      <td><div id="txtHint" ><input name="NO_CONTROL" id="NO_CONTROL" type="text" value=""   readonly="readonly" class="disabled-siaem entrada-texto"/></div></td>
-      <td align="" nowrap="nowrap">VOLTAJE/CORRIENTE/WATTS:</td>
-      <td><input type="text" name="PRECIO" value=""  placeholder="" class="entrada-texto"/></td>    
-    </tr>
-    
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap"><div align="center" style="border-top-style:solid; border-top-width:thin;"></div></th>
-    </tr>
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap" ><div align="center">Ubicación</div></th>
-    </tr>
-    
-    <tr valign="baseline">
-      <td align="" nowrap="nowrap">
-        UBICACIÓN/ SERVICIO</td>
-      <td><select name="ID_AREA" id="select4"  class="select" > 
-        <option value="" selected="selected"> Seleccione ... </option>
-          </select>
-      </td>
-    </tr>
-    
-    <tr valign="baseline">
-    <td align="" nowrap="nowrap">RESPONSABLE</td>
-      <td><input type="text" name="EMAIL" value=""  placeholder="" class="entrada-texto"/></td>
-    <td align="" nowrap="nowrap">EXTENCIÓN</td>
-      <td><input type="text" name="PRECIO" value=""  placeholder="" class="entrada-texto"/></td>
-    </tr>
-    
-    <td align="" nowrap="nowrap">EMAIL </td>
-      <td><input type="text" name="EMAIL_PROV" value=""  placeholder="" class="entrada-texto"/></td>
-    
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap"><div align="center" style="border-top-style:solid; border-top-width:thin;"></div></th>
-    </tr>
-    <tr valign="baseline">
-      <th colspan="4"  nowrap="nowrap" ><div align="center">CAMBIO POR GARANTIA</div></th>
-    </tr>
-  </table>
-    
-  <table align="center" border="0" class="" >    
-    <tr valign="baseline">
-      <th colspan="1" nowrap="nowrap" ><div align="center">LLENAR LOS DATOS, SI Y SOLO SI SE REALIZO CAMBIO DE EQUIPO POR GARANTIA</div></th>
-    </tr> 
+        </tbody>
+      </table>
+        
+        <input type="hidden" name="total" id="total" value=""/>
+    </div>
+     
       
-    <tr valign="baseline">
+      <button class="btn btn-md btn-success" id="addBtn" type="button">
+        Agregar Equipo
+      </button>
+    
+      <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>
+      <div align="center"><h1>Ubicación</h1></div>
       
-      <td colspan="4">NOTAS:</td>
-    </tr>
-     <tr valign="baseline">
+     <div class="row justify-content-evenly" >
+     <div class="col">
+        
+      <select name="ID_AREA" id="select4"  class="select" > 
+        <option value="" selected="selected">UBICACIÓN/SERVICIO</option>
+      </select>     
+         
+      <input type="text" name="RESPONSABLE" value=""  placeholder="RESPONSABLE" class="entrada-texto"/>
+ 
+     </div>
+     <div class="col">
+        
+      <input type="text" name="EXTENCION" value=""  placeholder="EXTENCIÓN" class="entrada-texto"/>   
+      <input type="text" name="EMAIL_AREA" value=""  placeholder="EMAIL" class="entrada-texto"/>
       
-      <td colspan="4"><textarea name="NOTAS" cols="96" class="area-texto"></textarea></td>
-    </tr>
-             <tr valign="baseline">
+     </div>
+     </div>
+    
+      <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>
+      <div align="center"><h1>CAMBIO POR GARANTIA</h1></div>
       
-      <td colspan="4">OBSERVACIONES PARA INSTALACIÓN :</td>
-    </tr>
-     <tr valign="baseline">
+      <div class="row justufy-content-evenly">
+          
+      <div class="col-8">
+          
+      <h5>LLENAR LOS DATOS, SI Y SOLO SI SE REALIZO CAMBIO DE EQUIPO POR GARANTIA</h5>
+          
+      </div>     
+      <div class="col">
+          
+      <input type="date" name="FECHA_DE_CAMBIO" id="FECHA_DE_INSTALACION" value=""  onclick=""  min="2000-01-01" class="entrada-texto"/>
+          
+      </div>
+      </div> 
       
-      <td colspan="4"><textarea name="OBSERVACIONES" cols="96" class="area-texto"></textarea></td>
-    </tr>
+      <div class="row justify-content-evenly" >
+      <div class="col">
+      
+      <div id="txtHint" ><input name="NO_CONTROL_CAMBIO" id="NO_CONTROL" type="text" value=""   placeholder="NO. DE CONTROL" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+      
+      <input type="text" name="NO_SERIE_CAMBIO" value=""  placeholder="NO. DE SERIE" class="entrada-texto"/>
+          
+      </div>
+      <div class="col">
+          
+      </div>
+      </div>
+      
+      <div align="start"><h5>LLENAR LOS DATOS, SI Y SOLO SI SE REALIZO CAMBIO DE ACCESORIOS POR GARANTIA</h5></div> 
+      
+      <div class="row justify-content-evenly" >
+      <div class="col">
+    
+      <div id="txtHint" ><input name="NO_CONTROL_CAMBIO" id="NO_CONTROL" type="text" value=""   placeholder="ACCESORIO" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+      
+      <div id="txtHint" ><input name="NO_CONTROL_CAMBIO" id="NO_CONTROL" type="text" value=""   placeholder="NO. DE CONTROL" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+          
+      </div>
+      <div class="col">
+          
+      <input type="text" name="NO_SERIE_CAMBIO" value=""  placeholder="MODELO" class="entrada-texto"/> 
+      
+      <div id="txtHint" ><input name="NO_CONTROL_CAMBIO" id="NO_CONTROL" type="text" value=""   placeholder="MARCA" readonly="readonly" class="disabled-siaem entrada-texto"/></div>
+          
+      </div>
+      </div>
 
-   <tr><th colspan="4"> Datos Técnicos</th></tr>
-      <tr>
-      <td>ALIMENTACIÓN Y CONSUMO ELÉCTRICO</td>
-       <td><input type="text" class="entrada-texto" id="ALIMENTACION_CONSUMO" value=""></td>
-            <td>GASES</td>
-       <td><input type="text" class="entrada-texto" id="GASES" value=""></td>
-      </tr>
+
+      <input type="text" name="NO_SERIE_CAMBIO" value=""  placeholder="MANUALES O FOLLETOS ENTREGADOS" class="entrada-texto"/>
       
-      <tr>
-      <td>TEMPERATURA DE OPERACIÓN</td>
-       <td><input type="text" class="entrada-texto" id="TEMPERATURA" value=""></td>
-            <td>INSTALACIÓN HIDRÁULICA</td>
-       <td><input type="text" class="entrada-texto" id="INST_HIDRAULICA" value=""></td>
-      </tr>
+      <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>
+      <div align="center"><h1>INTALACIÓN Y CAPACITACIÓN</h1></div>
       
-        <tr>
-      <td>OTROS</td>
-       <td><input type="text" class="entrada-texto" id="OTROS" value=""></td>
-            <td>CONEXIÓN A RED</td>
-       <td><input type="text" class="entrada-texto" id="CX_RED" value=""></td>
-      </tr>
-       <tr valign="baseline">
-      <td nowrap="nowrap" align="right">&nbsp;</td>
-      <td align="" nowrap="nowrap"><div align="center">
-         <a href="menuInventario.html" class="btn boton-secundario"> Cancelar</a>
-      </div></td>
-      <td align="" nowrap="nowrap"></td>
-      <td><div align="center">
+      <div class="row jsutify -content-evenly">
+      <div class="col">
+      <h5>REQUIERE CAPACITACIÓN Y/O PRUEBAS DE FUNCIONAMIENTO: (F06-PR-SSQ-04)</h5> 
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+                SI
+            </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                NO
+            </label>
+      </div>
+      </div>
+          
+      <div class="col">
+      <h5>REQUIERE CAPACITACIÓN</h5>
+      <h5>BIOMEDICA</h5>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3">
+            <label class="form-check-label" for="flexRadioDefault3">
+                SI
+            </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4">
+            <label class="form-check-label" for="flexRadioDefault4">
+                NO
+            </label>
+      </div>
+     <h5>AREA USUARIA</h5>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault5">
+            <label class="form-check-label" for="flexRadioDefault5">
+                SI
+            </label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault6">
+            <label class="form-check-label" for="flexRadioDefault6">
+                NO
+            </label>
+      </div>    
+      </div>    
+      </div>
+      
+      <div class="row jsutify-content-evenly">
+      <div class="col">
+         
+      <h5>SE ENTREGA FUNCIONANDO AL ÁREA USUARIA</h5>
+      <input type="date" name="FECHA_DE_CAMBIO" id="FECHA_DE_INSTALACION" value=""  onclick=""  min="2000-01-01" class="entrada-texto"/>
+          
+      <h5>FECHA DE CONCLUSIÓN DE CAPACITACIONES</h5>
+      <input type="date" name="FECHA_DE_CAMBIO" id="FECHA_DE_INSTALACION" value=""  onclick=""  min="2000-01-01" class="entrada-texto"/>
+          
+      </div>    
+      <div class="col"></div>
+          
+      </div> 
+      </div>
+      
+      <div align="center" style="border-top-style:solid; border-top-width:thin;"></div>
+      <div align="center"><h1>OBSERVACIONES</h1></div>
+      
+      <div align="start"><h5>OBSERVACIONES:</h5></div>  
+      <textarea name="NOTAS" cols="96" class="area-texto"></textarea>
+      <div class="row">
+      <div class="col">    <div align="center">
+         <a href="menuInventario.html" class="btn boton-secundario">Cancelar</a>
+      </div></div>
+          <div class="col">     <div align="center">
         <input type="submit" id="submit" value="Ingresar " style="" class="boton-primario"/>
-      </div></td>
-    </tr>
-  </table>
+      </div> </div>
+      
+      </div>
+  
+ 
+   </div>
   <input type="hidden" name="MM_insert" value="form1" />
 </form>
 <p>&nbsp;</p>
